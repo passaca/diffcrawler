@@ -5,6 +5,44 @@ Useful to track updates on sites that don't provide RSS feeds.
 
 Please be aware that the software is still in a very early alpha stage.
 
+## Installation
+### Linux and Mac
+Make sure git, python (>= 3.10), pip and tkinter are installed on your system. This depends on the package management system of you operating system. On Debian-based distros this could look like this:
+```console
+$ sudo apt-get install git python3-pip python3-venv python3-tk
+```
+
+And on Mac with Homebrew installed:
+```console
+$ brew install git python python-tk
+```
+
+ Change to the path where you want to create the DiffCrawler directory. Then clone the repository:
+```console
+$ git clone https://github.com/passaca/diffcrawler
+```
+
+Change to the `diffcrawler` directory, create a virtual environment and activate it:
+```console
+$ cd diffcrawler
+$ python3 -m venv venv
+$ source venv/bin/activate
+```
+
+Install the required packages:
+```console
+$ pip install -r requirements.txt
+```
+
+Run the application:
+```
+$ python3 -m diffcrawler
+```
+
+### Windows
+The application is untested on Windows (as I have no system available) but there is no reason it should not run. If anybody wants to test it and provide instructions, feel free.
+
+
 ## Usage
 
 ### Adding Websites to Monitor
