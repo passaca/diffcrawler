@@ -16,17 +16,17 @@ Websites you wish to monitor can be added to the list via the `Add` button. The 
 | Timeout | Timeout in seconds (total allowed time for server response)
 | Diff Threshold | Minimum number of content changes to consider website changed/unread
 | Favorite | Mark URL as favorite (use-case not implemented yet)
-| Added date | Date at which the website was added to list
+| Date Added | Date at which the website was added to list
 
 ### Fetching Website Contents
 
 To fetch/update the content, select the website(s) from the list (hold `Shift`/`Ctrl`/`Command` for multiple selection) and click the `Fetch` button. The selected websites are fetched concurrently (up to 5 simultaneous connections). A successful fetch is shown as a check mark (✔) and an error (most commonly a timeout or DNS error due to a wrong URL) is symbolized as a ballot character (✘).
 
-Date and time of the successful fetches are shown. Once there is a second retrieval for a website, the difference (diff) of the two versions is calculated and shown. If it is larger than the "Diff Threshold", the website is considered "changed" and marked unread (bold font). The selected sites can be opened in a browser with the `Open URL` button (and will be marked read when you do so).
+Date and time of the successful fetches are shown. Once there is a second fetch for a website, the difference (diff) of the two versions is calculated and shown. If it is larger than the "Diff Threshold", the website is considered "changed" and marked unread (bold font). The selected sites can be opened in a browser with the `Open URL` button (and will be marked read when you do so).
 
 The actual diff can be inspected from the `View` menu (`Show Diff`).
 
-A fetch can be undone in case the current version of the website is showing content unrelated to the monitored version (e.g. a "maintentance" message or server error page). Select `Undo Fetch` from the `Edit` menu.
+A fetch can be undone in case the current version of the website is showing content unrelated to the monitored version (e.g. a "maintentance" message or server error page). For this, select `Undo Fetch` from the `Edit` menu.
 
 ## Features
 - Cross platform (Mac, Linux, Windows)

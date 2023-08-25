@@ -57,8 +57,8 @@ class PropertyPane(ttk.Frame):
         self._is_fav = tk.IntVar()
         self._fav_box = ttk.Checkbutton(self, text='Favorite', variable=self._is_fav, command=lambda : self._property_changed('is_fav'))
 
-        # Added date property
-        self._added_lbl = ttk.Label(self, text='Added')
+        # Date added property
+        self._added_lbl = ttk.Label(self, text='Date Added')
         self._date_lbl = ttk.Label(self, text='')
 
         # Widget starts out invisible (empty window with empty list)
