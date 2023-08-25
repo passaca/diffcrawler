@@ -17,6 +17,7 @@ from diffcrawler.widgets.property_pane import PropertyPane
 from diffcrawler.widgets.list_pane import ListPane
 from diffcrawler.utils.data_controller import DataController
 from diffcrawler.utils.misc import IncorrectFileFormatError
+from diffcrawler.utils.misc import ShortcutFormatter
 
 
 class MainWindow(tk.Toplevel):
@@ -71,40 +72,43 @@ class MainWindow(tk.Toplevel):
         self.load_file(path)
 
         ## Create menus
+
+        sf = ShortcutFormatter(ws=self.tk.call('tk', 'windowingsystem'))
+
         self.option_add('*tearOff', False)
         self.menubar = tk.Menu(self)
 
         # File menu
         self.menu_file = tk.Menu(self.menubar)
-        self.menu_file.add_command(label='New', command=self.new, accelerator='Shift+Command+N')
-        self.menu_file.add_command(label='Open...', command=self.open, accelerator='Command+O')
+        self.menu_file.add_command(label='New', command=self.new, accelerator=sf.accel(key='N', mod1='Shift', mod2='Command'))
+        self.menu_file.add_command(label='Open...', command=self.open, accelerator=sf.accel(key='O', mod1='Command'))
         self.menu_file.add_separator()
-        self.menu_file.add_command(label='Save', command=self.save, accelerator='Command+S')
-        self.menu_file.add_command(label='Save As...', command=self.save_as, accelerator='Command+Shift+S')
+        self.menu_file.add_command(label='Save', command=self.save, accelerator=sf.accel(key='S', mod1='Command'))
+        self.menu_file.add_command(label='Save As...', command=self.save_as, accelerator=sf.accel(key='S', mod1='Shift', mod2='Command'))
         self.menu_file.add_separator()
-        self.menu_file.add_command(label='Close', command=self.close, accelerator='Command+W')
-        self.menu_file.add_command(label='Quit', command=self.quit, accelerator='Command+Q')
+        self.menu_file.add_command(label='Close', command=self.close, accelerator=sf.accel(key='W', mod1='Command'))
+        self.menu_file.add_command(label='Quit', command=self.quit, accelerator=sf.accel(key='Q', mod1='Command'))
         self.menubar.add_cascade(menu=self.menu_file, label='File')
 
         # Edit menu
         self.menu_edit = tk.Menu(self.menubar)
-        self.menu_edit.add_command(label='Undo Fetch', command=self.controller.undo_fetch, accelerator='Command+Z')
+        self.menu_edit.add_command(label='Undo Fetch', command=self.controller.undo_fetch, accelerator=sf.accel(key='Z', mod1='Command'))
         self.menu_edit.add_separator()
-        self.menu_edit.add_command(label='Copy', command=lambda: self.focus_get().event_generate('<<Copy>>'), accelerator='Command+C')
-        self.menu_edit.add_command(label='Paste', command=lambda: self.focus_get().event_generate('<<Paste>>'), accelerator='Command+V')
+        self.menu_edit.add_command(label='Copy', command=lambda: self.focus_get().event_generate('<<Copy>>'), accelerator=sf.accel(key='C', mod1='Command'))
+        self.menu_edit.add_command(label='Paste', command=lambda: self.focus_get().event_generate('<<Paste>>'), accelerator=sf.accel(key='V', mod1='Command'))
         self.menu_edit.add_separator()
-        self.menu_edit.add_command(label='Fetch', command=self.controller.fetch, accelerator='Command+G')
+        self.menu_edit.add_command(label='Fetch', command=self.controller.fetch, accelerator=sf.accel(key='G', mod1='Command'))
         self.menu_edit.add_separator()
-        self.menu_edit.add_command(label='Add', command=self.controller.new_resource, accelerator='Command+N')
-        self.menu_edit.add_command(label='Remove', command=self.controller.remove_resource, accelerator='Command+Backspace')
+        self.menu_edit.add_command(label='Add', command=self.controller.new_resource, accelerator=sf.accel(key='N', mod1='Command'))
+        self.menu_edit.add_command(label='Remove', command=self.controller.remove_resource, accelerator=sf.accel(key='Backspace', mod1='Command'))
         self.menu_edit.add_separator()
-        self.menu_edit.add_command(label='Mark Read', command=self.controller.mark_read, accelerator='Command+R')
+        self.menu_edit.add_command(label='Mark Read', command=self.controller.mark_read, accelerator=sf.accel(key='R', mod1='Command'))
         self.menubar.add_cascade(menu=self.menu_edit, label='Edit')
 
         # View menu
         self.menu_view = tk.Menu(self.menubar)
-        self.menu_view.add_command(label='Show Diff', command=self.controller.show_diff, accelerator='Command+D')
-        self.menu_view.add_command(label='Open URL', command=self.controller.open_url, accelerator='Command+U')
+        self.menu_view.add_command(label='Show Diff', command=self.controller.show_diff, accelerator=sf.accel(key='D', mod1='Command'))
+        self.menu_view.add_command(label='Open URL', command=self.controller.open_url, accelerator=sf.accel(key='U', mod1='Command'))
         self.menubar.add_cascade(menu=self.menu_view, label='View')
 
         self.configure(menu=self.menubar)
@@ -114,24 +118,24 @@ class MainWindow(tk.Toplevel):
 
         ## Create keyboard shortcuts
         # File menu
-        self.bind('<Command-N>', lambda _: self.new())
-        self.bind('<Command-o>', lambda _: self.open())
-        self.bind('<Command-s>', lambda _: self.save())
-        self.bind('<Command-S>', lambda _: self.save_as())
-        self.bind('<Command-w>', lambda _: self.close())
+        self.bind(sf.binding(key='N', mod1='Command'), lambda _: self.new())
+        self.bind(sf.binding(key='o', mod1='Command'), lambda _: self.open())
+        self.bind(sf.binding(key='s', mod1='Command'), lambda _: self.save())
+        self.bind(sf.binding(key='S', mod1='Command'), lambda _: self.save_as())
+        self.bind(sf.binding(key='w', mod1='Command'), lambda _: self.close())
         
         # Edit menu
-        self.bind('<Command-z>', lambda _: self.controller.undo_fetch())
+        self.bind(sf.binding(key='z', mod1='Command'), lambda _: self.controller.undo_fetch())
         self.bind('<<Copy>>', self._copy_url)
         self.bind('<<Paste>>', self._paste_url)
-        self.bind('<Command-g>', lambda _: self.controller.fetch())
-        self.bind('<Command-n>', lambda _: self.controller.new_resource())
-        self.bind('<Command-BackSpace>', lambda _: self.controller.remove_resource())
-        self.bind('<Command-r>', lambda _: self.controller.mark_read())
+        self.bind(sf.binding(key='g', mod1='Command'), lambda _: self.controller.fetch())
+        self.bind(sf.binding(key='n', mod1='Command'), lambda _: self.controller.new_resource())
+        self.bind(sf.binding(key='BackSpace', mod1='Command'), lambda _: self.controller.remove_resource())
+        self.bind(sf.binding(key='r', mod1='Command'), lambda _: self.controller.mark_read())
         
         # View menu
-        self.bind('<Command-d>', lambda _: self.controller.show_diff())
-        self.bind('<Command-u>', lambda _: self.controller.open_url())
+        self.bind(sf.binding(key='d', mod1='Command'), lambda _: self.controller.show_diff())
+        self.bind(sf.binding(key='u', mod1='Command'), lambda _: self.controller.open_url())
 
     def load_file(self, path: str) -> None:
         """Create controller with file at 'path'"""

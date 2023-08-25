@@ -70,3 +70,49 @@ class IncorrectFileFormatError(Exception):
     """
 
     pass
+
+
+class ShortcutFormatter:
+    """
+    Class used to generate platform-specific format string used in Tkinter to denote 'accelerators' (menu shortcuts)
+    and bind keys (keyboard shortcuts).
+    """
+
+    def __init__(self, ws: str):
+        # Windowing System: 'aqua', 'win32' or 'x11'
+        self.ws = ws
+
+        # On Mac, 'Command' is roughly equivalent to 'Ctrl' on X11 and Windows
+        self.equiv_ctrl = ['Ctrl', 'Command']
+
+    def accel(self, key: str, mod1: str, mod2: str = '') -> str:
+        """Format and return platform-specific accelerator string"""
+        accelerator = f'{self._key_sequence(join="+", key=key, mod1=mod1, mod2=mod2)}'
+        
+        return accelerator
+    
+    def binding(self, key: str, mod1: str, mod2: str = '') -> str:
+        """Format and return platform-specific key binding string"""
+        binding = f'<{self._key_sequence(join="-", key=key, mod1=mod1, mod2=mod2)}>'
+
+        return binding
+
+    def _key_sequence(self, join: str, key: str, mod1: str, mod2: str = '') -> str:
+        """Create platform-specific key sequence string with custom join symbol between keys."""
+
+        sequence = ''
+
+        if mod1 in self.equiv_ctrl:
+            sequence += 'Command' if self.ws == 'aqua' else 'Ctrl'
+        else:
+            sequence += mod1
+        
+        if mod2:
+            if mod2 in self.equiv_ctrl:
+                sequence += join + 'Command' if self.ws == 'aqua' else join + 'Ctrl'
+            else:
+                sequence += join + mod1
+        
+        sequence += join + key
+
+        return sequence

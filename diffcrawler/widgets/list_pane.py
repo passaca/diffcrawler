@@ -9,6 +9,7 @@ import tkinter.ttk as ttk
 
 from diffcrawler.utils.dbscheme import Resource
 from diffcrawler.utils.misc import format_date
+from diffcrawler.utils.misc import ShortcutFormatter
 
 
 class ListPane(ttk.Frame):
@@ -53,15 +54,17 @@ class ListPane(ttk.Frame):
         self.list_box.column('timeout', width=80, minwidth=60, stretch=False)
         self.list_box.column('diff_lines', width=60, minwidth=60, stretch=False)
         self.list_box.column('status', width=60, minwidth=60, stretch=False)
-        self.list_box.column('cur_date', width=200, minwidth=200, stretch=False)
+        self.list_box.column('cur_date', width=160, minwidth=160, stretch=False)
         self.list_box.column('diff_thresh', width=80, minwidth=60, stretch=False)
-        self.list_box.column('prev_date', width=200, minwidth=200, stretch=False)
+        self.list_box.column('prev_date', width=160, minwidth=160, stretch=False)
+
+        sf = ShortcutFormatter(ws=self.tk.call('tk', 'windowingsystem'))
 
         # Inform data controller of changed selection
         self.list_box.bind('<<TreeviewSelect>>', self._selection_changed)
 
         # Allow keyboard shortcut to select all
-        self.list_box.bind('<Command-a>', self._select_all)
+        self.list_box.bind(sf.binding(key='a', mod1='Command'), self._select_all)
 
         self.list_box.grid(row=0, column=0, columnspan=2, sticky='nsew')
 

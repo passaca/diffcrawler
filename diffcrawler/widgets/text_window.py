@@ -5,6 +5,8 @@ Window used to display a string in a textbox.
 import tkinter as tk
 import tkinter.ttk as ttk
 
+from diffcrawler.utils.misc import ShortcutFormatter
+
 
 class TextWindow(tk.Toplevel):
     """
@@ -34,5 +36,6 @@ class TextWindow(tk.Toplevel):
         self._txt_wdgt.configure(xscrollcommand=self._hsb.set)
 
         # Allow closing window with shortcuts
-        self.bind('<Command-w>', lambda _: self.destroy())
+        sf = ShortcutFormatter(ws=self.tk.call('tk', 'windowingsystem'))
+        self.bind(sf.binding(key='w', mod1='Command'), lambda _: self.destroy())
         self.bind('<Escape>', lambda _: self.destroy())
