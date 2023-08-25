@@ -83,13 +83,13 @@ class ShortcutFormatter:
         self.ws = ws
 
         # On Mac, 'Command' is roughly equivalent to 'Ctrl' on X11 and Windows
-        self.equiv_ctrl = ['Ctrl', 'Command']
+        self.equiv_ctrl = ['Ctrl', 'Command', 'Control']
 
     def accel(self, key: str, mod1: str, mod2: str = '') -> str:
         """Format and return platform-specific accelerator string"""
         accelerator = f'{self._key_sequence(join="+", key=key, mod1=mod1, mod2=mod2)}'
         
-        return accelerator
+        return accelerator.replace('Control', 'Ctrl')
     
     def binding(self, key: str, mod1: str, mod2: str = '') -> str:
         """Format and return platform-specific key binding string"""
@@ -103,13 +103,13 @@ class ShortcutFormatter:
         sequence = ''
 
         if mod1 in self.equiv_ctrl:
-            sequence += 'Command' if self.ws == 'aqua' else 'Ctrl'
+            sequence += 'Command' if self.ws == 'aqua' else 'Control'
         else:
             sequence += mod1
         
         if mod2:
             if mod2 in self.equiv_ctrl:
-                sequence += join + 'Command' if self.ws == 'aqua' else join + 'Ctrl'
+                sequence += join + 'Command' if self.ws == 'aqua' else join + 'Control'
             else:
                 sequence += join + mod1
         
