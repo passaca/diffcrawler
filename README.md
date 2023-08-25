@@ -1,7 +1,7 @@
 # DiffCrawler
 Cross-platform GUI tool to monitor the content (displayed text) of websites. If the content changes, the website is marked "unread", informing the user of the change.
 
-![Screenshot of the DiffCrawler application on Mac (dark theme)](screeenshot_mac.png)
+![Screenshot of the DiffCrawler application on Mac (dark theme)](screenshot_mac.png)
 
 Useful to track updates on sites that don't provide RSS feeds.
 
