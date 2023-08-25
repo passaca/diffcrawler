@@ -21,6 +21,15 @@ class DiffCrawler(tk.Tk):
 
         # Hide root window
         self.withdraw()
+        
+        # Adjust theme of app depending on OS:
+        ws = self.tk.call('tk', 'windowingsystem')
+        if ws == 'x11':
+            tk.ttk.Style().theme_use('clam')
+        elif ws == 'win32':
+            tk.ttk.Style().theme_use('vista')
+        elif ws == 'aqua':
+            tk.ttk.Style().theme_use('aqua')
 
         # Set handlers for OS functions
         self.protocol('WM_DELETE_WINDOW', self.exit)

@@ -50,11 +50,11 @@ class ListPane(ttk.Frame):
 
         # Adjust sizes
         self.list_box.column('is_fav', width=40, minwidth=40, stretch=False)
-        self.list_box.column('timeout', width=60, minwidth=60, stretch=False)
+        self.list_box.column('timeout', width=80, minwidth=60, stretch=False)
         self.list_box.column('diff_lines', width=60, minwidth=60, stretch=False)
         self.list_box.column('status', width=60, minwidth=60, stretch=False)
         self.list_box.column('cur_date', width=200, minwidth=200, stretch=False)
-        self.list_box.column('diff_thresh', width=60, minwidth=60, stretch=False)
+        self.list_box.column('diff_thresh', width=80, minwidth=60, stretch=False)
         self.list_box.column('prev_date', width=200, minwidth=200, stretch=False)
 
         # Inform data controller of changed selection

@@ -30,7 +30,7 @@ class MainWindow(tk.Toplevel):
 
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
-        self.minsize(width=750, height=300)
+        self.minsize(width=750, height=400)
 
         # Main frame covering window as a whole
         self.mainframe = ttk.Frame(self)
