@@ -123,6 +123,7 @@ class MainWindow(tk.Toplevel):
         self.bind(sf.binding(key='s', mod1='Command'), lambda _: self.save())
         self.bind(sf.binding(key='S', mod1='Command'), lambda _: self.save_as())
         self.bind(sf.binding(key='w', mod1='Command'), lambda _: self.close())
+        self.bind(sf.binding(key='q', mod1='Command'), lambda _: self.quit())
         
         # Edit menu
         self.bind(sf.binding(key='z', mod1='Command'), lambda _: self.controller.undo_fetch())
