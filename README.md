@@ -11,12 +11,12 @@ Please be aware that the software is still in a very early alpha stage.
 ### Linux and Mac
 Make sure git, python (>= 3.10), pip and tkinter are installed on your system. This depends on the package management system of you operating system. On Debian-based distros this could look like this:
 ```
-$ sudo apt-get install git python3-pip python3-venv python3-tk
+sudo apt-get install git python3-pip python3-venv python3-tk
 ```
 
 And on Mac with Homebrew installed:
 ```
-$ brew install git python python-tk
+brew install git python python-tk
 ```
 
  Change to the path where you want to create the `diffcrawler` directory. Then clone the repository:
