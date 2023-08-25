@@ -193,7 +193,7 @@ class MainWindow(tk.Toplevel):
         
     def save_as(self) -> bool:
         """Save current file to a new location on disk."""
-        path = filedialog.asksaveasfilename(defaultextension='dfc')
+        path = filedialog.asksaveasfilename(defaultextension='.dfc')
 
         if path:
             return self.controller.save_as(path)

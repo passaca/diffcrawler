@@ -87,17 +87,17 @@ class ShortcutFormatter:
 
     def accel(self, key: str, mod1: str, mod2: str = '') -> str:
         """Format and return platform-specific accelerator string"""
-        accelerator = f'{self._key_sequence(join="+", key=key, mod1=mod1, mod2=mod2)}'
+        accelerator = f'{self._key_sequence(join_symb="+", key=key, mod1=mod1, mod2=mod2)}'
         
         return accelerator.replace('Control', 'Ctrl')
     
     def binding(self, key: str, mod1: str, mod2: str = '') -> str:
         """Format and return platform-specific key binding string"""
-        binding = f'<{self._key_sequence(join="-", key=key, mod1=mod1, mod2=mod2)}>'
+        binding = f'<{self._key_sequence(join_symb="-", key=key, mod1=mod1, mod2=mod2)}>'
 
         return binding
 
-    def _key_sequence(self, join: str, key: str, mod1: str, mod2: str = '') -> str:
+    def _key_sequence(self, join_symb: str, key: str, mod1: str, mod2: str = '') -> str:
         """Create platform-specific key sequence string with custom join symbol between keys."""
 
         sequence = ''
@@ -109,10 +109,10 @@ class ShortcutFormatter:
         
         if mod2:
             if mod2 in self.equiv_ctrl:
-                sequence += join + 'Command' if self.ws == 'aqua' else join + 'Control'
+                sequence += join_symb + 'Command' if self.ws == 'aqua' else join_symb + 'Control'
             else:
-                sequence += join + mod1
+                sequence += join_symb + mod1
         
-        sequence += join + key
+        sequence += join_symb + key
 
         return sequence
