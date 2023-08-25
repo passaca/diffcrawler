@@ -76,7 +76,7 @@ class MainWindow(tk.Toplevel):
 
         # File menu
         self.menu_file = tk.Menu(self.menubar)
-        self.menu_file.add_command(label='New', command=self.new, accelerator='Command+N')
+        self.menu_file.add_command(label='New', command=self.new, accelerator='Shift+Command+N')
         self.menu_file.add_command(label='Open...', command=self.open, accelerator='Command+O')
         self.menu_file.add_separator()
         self.menu_file.add_command(label='Save', command=self.save, accelerator='Command+S')
@@ -114,7 +114,7 @@ class MainWindow(tk.Toplevel):
 
         ## Create keyboard shortcuts
         # File menu
-        self.bind('<Command-n>', lambda _: self.new())
+        self.bind('<Command-N>', lambda _: self.new())
         self.bind('<Command-o>', lambda _: self.open())
         self.bind('<Command-s>', lambda _: self.save())
         self.bind('<Command-S>', lambda _: self.save_as())
